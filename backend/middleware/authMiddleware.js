@@ -8,7 +8,7 @@ export let isRequire = async (req, res, next) => {
         console.log('Hi I am decode', decode);
         if (!decode) {
             res.status(200).send({ message: "Unauthorized User" });
-        }
+        } 
         next();
     } catch (err) {
         console.log(err);
