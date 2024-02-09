@@ -1,8 +1,9 @@
 import usersModel from "../model/usersModel.js";
-import jwt from "jsonwebtoken";
+import  jwt  from "jsonwebtoken";
 
 export let isRequire = async (req, res, next) => {
     try {
+        console.log(req.headers.authorization);
         let decode = jwt.verify(req.headers.authorization, process.env.SECRET_KEY);
         req.user = decode;
         console.log('Hi I am decode', decode);
