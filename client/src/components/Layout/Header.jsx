@@ -32,17 +32,17 @@ function Header() {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" href="/register">
+              <NavLink className="nav-link" to="/register">
                 REGISTER
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" href="/signin">
+              <NavLink className="nav-link" to="/signin">
                 LOGIN
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" href="/cart">
+              <NavLink className="nav-link" to="/cart">
                 CART(0)
               </NavLink>
             </li>

@@ -3,8 +3,9 @@ import Layout from '../../Layout/Layout'
 
 function Signup() {
   return (
-    <Layout title="Sign Up - ecom">
+    <Layout title="Registration - ecom">
         <h1>signup</h1>
+        
     </Layout>
   )
 }
