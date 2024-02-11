@@ -4,7 +4,7 @@ import Layout from '../../Layout/Layout'
 function SignIn() {
   return (
     <Layout title="Sign In - ecom">
-        <h1>singin</h1>
+        <h1>signin</h1>
     </Layout>
   )
 }
