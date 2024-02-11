@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import axios from 'axios';
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import Layout from "../../Layout/Layout";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormControl, FormLabel } from "@mui/material";
 
 function Signup() {
-  const [formData, setFormData] = useState([
+  const [formData, setFormData] = useState(
     {
       name: "",
       email: "",
@@ -13,26 +16,43 @@ function Signup() {
       phone: "",
       address: "",
     },
-  ]);
-
+  );
+  let navigate = useNavigate();
   function formDataHandler(e) {
     setFormData((pre) => {
       return { ...pre, [e.target.name]: e.target.value };
     });
   }
-  function submitHandler(e) {
-    e.preventDefault();
-    //inline validation
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.password ||
-      !formData.phone ||
-      !formData.address
-    ) {
-      console.log("all  field are required *");
-    } else {
-      console.log(formData);
+  async function submitHandler(e) {
+    try {
+      e.preventDefault();
+      //inline validation
+      if (
+        !formData.name ||
+        !formData.email ||
+        !formData.password ||
+        !formData.phone ||
+        !formData.address
+      ) {
+        console.log("all  field are required *");
+      } else {
+        console.log(formData);
+        //api hitting
+        let res= await axios.post(`/api/v1/register`,{...formData})
+        let data=res.data
+        if(data.success)
+        {
+          //console.log(data.message)
+          toast(data.message)
+          navigate('/signin')
+        }
+        else{
+          //console.log(data.message)
+          toast(data.message)
+        }
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
   return (
