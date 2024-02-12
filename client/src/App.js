@@ -7,10 +7,13 @@ import Contact from './components/Pages/Contact'
 import Policy from './components/Pages/Policy'
 import SignIn from './components/Pages/auth/SignIn'
 import Signup from './components/Pages/auth/Signup'
-import Layout from './components/Layout/Layout'
 import ProtectedRoute from './components/Route/ProtectedRoute'
 import Dashbord from './components/Pages/user/Dashboard'
 import ForgetPassword from './components/Pages/auth/ForgetPassword'
+import Order from './components/Pages/user/Order'
+import Profile from './components/Pages/user/Proile'
+import AdminProtectedRoute from './components/Route/AdminProtectedRoute'
+import AdminDashboard from './components/Pages/admin/AdminDashboard'
 function App() {
   return (
     <Routes>
@@ -22,9 +25,14 @@ function App() {
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/forget-password' element={<ForgetPassword/>}/>
-         <Route path='/dashboard' element={<ProtectedRoute/>}>
-         <Route path='' element={<Dashbord/>}/>
-        </Route>
+      <Route path='/dashboard' element={<ProtectedRoute/>}>
+         <Route path='user' element={<Dashbord/>}/>
+         <Route path='order' element= {<Order/>} />
+         <Route path='profile'  element = {<Profile/>} />
+      </Route>
+      <Route path="/dashboard" element={<AdminProtectedRoute/>}>
+        <Route path="admin" element={<AdminDashboard/>}/>
+      </Route>
       <Route path='/*' element={<PageNotFound/>}/>
     </Routes>  
   )

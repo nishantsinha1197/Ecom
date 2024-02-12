@@ -9,7 +9,7 @@ function Spinner() {
     let id = setInterval(() => {
       setTimer(--timer);
     }, 1000);
-    if (timer == 0) navigate("/signin",{state:location.pathname});
+    if (timer === 0) navigate("/signin",{state:location.pathname});
     return () => {
       clearInterval(id);
     };
@@ -19,7 +19,6 @@ function Spinner() {
       <div className="row">
         <div className="col d-flex justify-content-center align-items-center">
           <h6> redirect to you in {timer} secound</h6>
-
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>

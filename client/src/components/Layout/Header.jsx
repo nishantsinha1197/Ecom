@@ -3,10 +3,9 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink,Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { FormControl } from "@mui/material";
-import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 
@@ -42,7 +41,23 @@ function Header() {
           </NavLink>
         ))}
         {auth?.token ? (
-          <Button color="inherit" onClick={handleLogout}>LOGOUT</Button>
+          // <Button color="inherit" onClick={handleLogout}>LOGOUT</Button>
+          <FormControl>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            defaultValue={auth.user.name ? auth.user.name : ''}
+            sx={{ color: 'white' }}
+          >
+            <MenuItem value={auth.user.name ? auth.user.name : ''} >
+              <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>{auth.user.name}</Link>
+            </MenuItem>
+            <MenuItem value={'DASHBOARD'} >
+              <Link to={auth.user.role==true?"/dashboard/admin":"/dashboard/user"} style={{ textDecoration: 'none', color: 'inherit' }}>DASHBOARD</Link>
+            </MenuItem>
+            <MenuItem value={'LOGOUT'} onClick={handleLogout}>LOGOUT</MenuItem>
+          </Select>
+        </FormControl>
         ) : (
           <>
             <NavLink
