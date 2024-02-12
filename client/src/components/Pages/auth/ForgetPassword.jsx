@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate ,Link} from "react-router-dom";
 import Layout from "../../Layout/Layout";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormControl, FormLabel } from "@mui/material";
+import { useAuth } from "../../../context/AuthContext";
 
-function Signup() {
+function ForgetPassword() {
+  let [auth,setAuth] = useAuth()
+  let location = useLocation()
+  console.log(location);
+  //env way
+  //console.log(process.env.REACT_APP_PROXY)
   const [formData, setFormData] = useState(
     {
-      name: "",
       email: "",
       password: "",
-      phone: "",
-      address: "",
-      answer:''
+      answer:""
     },
   );
   let navigate = useNavigate();
@@ -29,28 +32,21 @@ function Signup() {
       e.preventDefault();
       //inline validation
       if (
-        !formData.name ||
         !formData.email ||
-        !formData.password ||
-        !formData.phone ||
-        !formData.address
+        !formData.password  || !formData.answer
       ) {
         console.log("all  field are required *");
       } else {
+        let res = await axios.post(`/api/v1/reset-password`, { ...formData });
+        let data = res.data;
+        if (data.success) {
+          toast(data.message);
+          setAuth(data)
+          navigate(location.state||"/signin");
+        } else {
+          toast(data.message);
+        }
         console.log(formData);
-        //api hitting
-        let res= await axios.post(`/api/v1/register`,{...formData})
-        let data=res.data
-        if(data.success)
-        {
-          //console.log(data.message)
-          toast(data.message)
-          navigate('/signin')
-        }
-        else{
-          //console.log(data.message)
-          toast(data.message)
-        }
       }
     } catch (err) {
       console.log(err);
@@ -74,18 +70,6 @@ function Signup() {
               alignItems: "center",
             }}
           >
-            <FormLabel>Name</FormLabel>
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
-              sx={{ maxWidth: "220px", margin: "0" }}
-              id="name"
-              name="name"
-              placeholder="Enter your name"
-              value={formData.name}
-              onChange={formDataHandler}
-            />
             <FormLabel>Email</FormLabel>
             <TextField
               fullWidth
@@ -104,40 +88,18 @@ function Signup() {
               size="small"
               sx={{ maxWidth: "220px", margin: "0" }}
               name="password"
-              placeholder="Enter your Password"
+              placeholder="Enter your new password"
               value={formData.password}
               onChange={formDataHandler}
             />
-            <FormLabel>Phone</FormLabel>
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
-              sx={{ maxWidth: "220px", margin: "0" }}
-              name="phone"
-              placeholder="Enter your Mobile No."
-              value={formData.phone}
-              onChange={formDataHandler}
-            />
-            <FormLabel>Address</FormLabel>
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
-              sx={{ maxWidth: "220px", margin: "0" }}
-              name="address"
-              placeholder="Enter your address"
-              value={formData.address}
-              onChange={formDataHandler}
-            />
-            <FormLabel>Nick Name</FormLabel>
+            <FormLabel>Nickname</FormLabel>
             <TextField
               fullWidth
               variant="outlined"
               size="small"
               sx={{ maxWidth: "220px", margin: "0" }}
               name="answer"
-              placeholder="What is your nickname"
+              placeholder="Enter your Password"
               value={formData.answer}
               onChange={formDataHandler}
             />
@@ -148,7 +110,7 @@ function Signup() {
             style={{ marginTop: "10px" }}
             onClick={submitHandler}
           >
-            Submit
+            RESET
           </Button>
         </FormControl>
       </div>
@@ -156,4 +118,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default ForgetPassword;

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate ,Link} from "react-router-dom";
 import Layout from "../../Layout/Layout";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -105,6 +105,10 @@ function SignIn() {
           >
             Submit
           </Button>
+          <hr/>
+                <div style={{textAlign:"center"}}>
+                  <Link to='/forget-password'>Forget Password</Link>
+                </div>
         </FormControl>
       </div>
     </Layout>

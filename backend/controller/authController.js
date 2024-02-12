@@ -3,7 +3,7 @@ import usersModel from "../model/usersModel.js";
 import jwt from "jsonwebtoken";
 //controller for registration
 export let registerController = async (req, res) => {
-  let { email, password, name, address, phone } = req.body;
+  let { email, password, name, address, phone, answer } = req.body;
   try {
     if (!email) {
       return res.status(500).send({ message: "email is required *" });
@@ -20,6 +20,9 @@ export let registerController = async (req, res) => {
     if (!phone) {
       return res.status(500).send({ message: "phone is required *" });
     }
+    if (!answer) {
+      return res.status(500).send({ message: "answer is required *" });
+    }
     let findUser = await usersModel.findOne({ email: email });
     if (findUser) {
       return res.status(200).send({ message: "User is Already Registered" });
@@ -31,6 +34,7 @@ export let registerController = async (req, res) => {
       address,
       phone,
       email,
+      answer,
     }).save();
 
     res
@@ -76,29 +80,51 @@ export let loginController = async (req, res) => {
     //Token creation when user is logged in successfully
     let token = jwt.sign(
       { _id: existingUser._id },
-      process.env.SECRET_KEY,
+      process.env.SECRET_KEY
       // { expiresIn: "7d" }
     );
-    console.log('token',token);
+    console.log("token", token);
     res.status(200).send({
-      message:'User logged in successfully',
-      success:true,
-      user : {
-        name:existingUser.name,
-        email:existingUser.email,
-        phone:existingUser.phone,
-        role:existingUser.role,
-        address:existingUser.address
+      message: "User logged in successfully",
+      success: true,
+      user: {
+        name: existingUser.name,
+        email: existingUser.email,
+        phone: existingUser.phone,
+        role: existingUser.role,
+        address: existingUser.address,
       },
-      token
-    })
+      token,
+    });
   } catch (err) {
-    res
-      .status(200)
-      .send({
-        message: "Something went wrong while trying to log in",
-        success: "false",
-        err,
-      });
+    res.status(200).send({
+      message: "Something went wrong while trying to log in",
+      success: "false",
+      err,
+    });
   }
+};
+export let restPasswordHandler = async (req, res) => {
+  let { email, password, answer } = req.body;
+  if (!email) {
+    return res.status(200).send({ message: "Email is required*" });
+  }
+  if (!password) {
+    return res.status(200).send({ message: "Field is required*" });
+  }
+  let findData = await usersModel.findOne({ email, answer });
+  if (!findData) {
+    return res
+      .status(200)
+      .send({ message: "Either email or answer are incorrect *" });
+  }
+  let hashpassword = await encryptPassword(password);
+  let updateData = await usersModel.findByIdAndUpdate(
+    { _id: findData._id },
+    { password: hashpassword },
+    { new: true }
+  );
+  res
+    .status(200)
+    .send({ message: "Password Update Successful", success: true });
 };

@@ -10,6 +10,7 @@ import Signup from './components/Pages/auth/Signup'
 import Layout from './components/Layout/Layout'
 import ProtectedRoute from './components/Route/ProtectedRoute'
 import Dashbord from './components/Pages/user/Dashboard'
+import ForgetPassword from './components/Pages/auth/ForgetPassword'
 function App() {
   return (
     <Routes>
@@ -20,6 +21,7 @@ function App() {
       <Route path='/policy' element={<Policy/>}/>
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<Signup/>}/>
+      <Route path='/forget-password' element={<ForgetPassword/>}/>
          <Route path='/dashboard' element={<ProtectedRoute/>}>
          <Route path='' element={<Dashbord/>}/>
         </Route>
