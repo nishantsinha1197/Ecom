@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import axios from 'axios';
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Layout from "../../Layout/Layout";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { FormControl, FormLabel } from "@mui/material";
+import { useAuth } from "../../../context/AuthContext";
 
 function SignIn() {
+  let [auth,setAuth] = useAuth()
+  let location = useLocation()
+  console.log(location);
+  //env way
+  //console.log(process.env.REACT_APP_PROXY)
   const [formData, setFormData] = useState(
     {
       email: "",
@@ -37,7 +43,10 @@ function SignIn() {
         if(data.success)
         {
           toast(data.message)
-          navigate('/')
+          setAuth(data)
+          console.log(location);
+
+          navigate(location.state||"/");
         }
         else{
           toast(data.message)

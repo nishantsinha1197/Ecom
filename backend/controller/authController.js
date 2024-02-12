@@ -60,7 +60,7 @@ export let loginController = async (req, res) => {
       res.status(500).send({ message: "Password is required" });
     }
     let existingUser = await usersModel.findOne({ email: email });
-
+    console.log(existingUser);
     if (!existingUser) {
       return res
         .status(200)
@@ -74,10 +74,10 @@ export let loginController = async (req, res) => {
         .send({ message: "Either email or password is invalid" });
     }
     //Token creation when user is logged in successfully
-    let token = await jwt.sign(
+    let token = jwt.sign(
       { _id: existingUser._id },
-      process.env.SCERET_KEY,
-      { expiresIn: "7d" }
+      process.env.SECRET_KEY,
+      // { expiresIn: "7d" }
     );
     console.log('token',token);
     res.status(200).send({

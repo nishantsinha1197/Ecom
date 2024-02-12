@@ -8,6 +8,8 @@ import Policy from './components/Pages/Policy'
 import SignIn from './components/Pages/auth/SignIn'
 import Signup from './components/Pages/auth/Signup'
 import Layout from './components/Layout/Layout'
+import ProtectedRoute from './components/Route/ProtectedRoute'
+import Dashbord from './components/Pages/user/Dashboard'
 function App() {
   return (
     <Routes>
@@ -18,6 +20,9 @@ function App() {
       <Route path='/policy' element={<Policy/>}/>
       <Route path='/signin' element={<SignIn/>}/>
       <Route path='/signup' element={<Signup/>}/>
+         <Route path='/dashboard' element={<ProtectedRoute/>}>
+         <Route path='' element={<Dashbord/>}/>
+        </Route>
       <Route path='/*' element={<PageNotFound/>}/>
     </Routes>  
   )
