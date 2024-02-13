@@ -19,7 +19,7 @@ function AdminProtectedRoute() {
    useEffect(()=>{
        isAdmin()
    },[])
-    return ok?<Outlet/>:<Spinner/>
+    return ok?<Outlet />:<Spinner path='/'/>
 }
 
 export default AdminProtectedRoute
