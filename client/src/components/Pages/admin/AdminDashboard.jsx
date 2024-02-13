@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../Layout/Layout";
 import { Typography } from "@mui/material";
-import AdminDashboardMenu from "../../AdminDashboardMenu";
+import AdminDashboardMenu from "../../AdminDashboardMenu";;
 
 function AdminDashboard() {
   return (
