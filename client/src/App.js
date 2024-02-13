@@ -14,6 +14,10 @@ import Order from './components/Pages/user/Order'
 import Profile from './components/Pages/user/Proile'
 import AdminProtectedRoute from './components/Route/AdminProtectedRoute'
 import AdminDashboard from './components/Pages/admin/AdminDashboard'
+import CreateCategory from './components/Pages/admin/CreateCategory'
+import CreateProduct from './components/Pages/admin/CreateProduct'
+import AllOrders from './components/Pages/admin/AllOrders'
+import Users from './components/Pages/admin/Users'
 function App() {
   return (
     <Routes>
@@ -27,11 +31,15 @@ function App() {
       <Route path='/forget-password' element={<ForgetPassword/>}/>
       <Route path='/dashboard' element={<ProtectedRoute/>}>
          <Route path='user' element={<Dashbord/>}/>
-         <Route path='order' element= {<Order/>} />
-         <Route path='profile'  element = {<Profile/>} />
+         <Route path='user/order' element= {<Order/>} />
+         <Route path='user/profile'  element = {<Profile/>} />
       </Route>
       <Route path="/dashboard" element={<AdminProtectedRoute/>}>
         <Route path="admin" element={<AdminDashboard/>}/>
+        <Route path ='admin/create-category' element={<CreateCategory/>}/>
+        <Route path ='admin/create-product' element={<CreateProduct/>}/>
+        <Route path="admin/all-orders" element={<AllOrders/>}/>
+        <Route path="admin/users" element={<Users/>}/>
       </Route>
       <Route path='/*' element={<PageNotFound/>}/>
     </Routes>  

@@ -10,14 +10,14 @@ function UserDashboardMenu() {
       <List>
         <ListItem disablePadding>
           <ListItemButton>
-            <Link style={navStyle} to="/dashboard/profile">
+            <Link style={navStyle} to="/dashboard/user/profile">
               <ListItemText primary="Profile" />
             </Link>
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
           <ListItemButton component="a" href="#simple-list">
-            <Link style={navStyle} to="/dashboard/order">
+            <Link style={navStyle} to="/dashboard/user/order">
               <ListItemText primary="Orders" />
             </Link>
           </ListItemButton>

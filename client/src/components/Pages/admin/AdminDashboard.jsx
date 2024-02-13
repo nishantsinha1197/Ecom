@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "../../Layout/Layout";
 import { Typography } from "@mui/material";
+import AdminDashboardMenu from "../../AdminDashboardMenu";
 
 function AdminDashboard() {
   return (
@@ -13,7 +14,7 @@ function AdminDashboard() {
         </Typography>
         <div className="row d-flex justify-content-start">
           <div className="col-md-3">
-            //admin dashboardMenu
+            <AdminDashboardMenu/>
           </div>
           <div className="col-md-9">//content</div>
         </div>
