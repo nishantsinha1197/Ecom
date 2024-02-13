@@ -82,6 +82,7 @@ function SignIn() {
               sx={{ maxWidth: "220px", margin: "0" }}
               name="email"
               placeholder="Enter your email"
+              type='text'
               value={formData.email}
               onChange={formDataHandler}
             />
@@ -93,6 +94,7 @@ function SignIn() {
               sx={{ maxWidth: "220px", margin: "0" }}
               name="password"
               placeholder="Enter your Password"
+              type='password'
               value={formData.password}
               onChange={formDataHandler}
             />

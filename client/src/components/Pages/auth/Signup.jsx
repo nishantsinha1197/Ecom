@@ -83,6 +83,7 @@ function Signup() {
               id="name"
               name="name"
               placeholder="Enter your name"
+              type='text'
               value={formData.name}
               onChange={formDataHandler}
             />
@@ -94,6 +95,7 @@ function Signup() {
               sx={{ maxWidth: "220px", margin: "0" }}
               name="email"
               placeholder="Enter your email"
+              type='email'
               value={formData.email}
               onChange={formDataHandler}
             />
@@ -105,6 +107,7 @@ function Signup() {
               sx={{ maxWidth: "220px", margin: "0" }}
               name="password"
               placeholder="Enter your Password"
+              type='password'
               value={formData.password}
               onChange={formDataHandler}
             />
@@ -116,6 +119,7 @@ function Signup() {
               sx={{ maxWidth: "220px", margin: "0" }}
               name="phone"
               placeholder="Enter your Mobile No."
+              type='string'
               value={formData.phone}
               onChange={formDataHandler}
             />
@@ -127,6 +131,7 @@ function Signup() {
               sx={{ maxWidth: "220px", margin: "0" }}
               name="address"
               placeholder="Enter your address"
+              type='text'
               value={formData.address}
               onChange={formDataHandler}
             />
@@ -138,6 +143,7 @@ function Signup() {
               sx={{ maxWidth: "220px", margin: "0" }}
               name="answer"
               placeholder="What is your nickname"
+              type='text'
               value={formData.answer}
               onChange={formDataHandler}
             />
@@ -146,6 +152,7 @@ function Signup() {
             variant="contained"
             color="primary"
             style={{ marginTop: "10px" }}
+            type='submit'
             onClick={submitHandler}
           >
             Submit
