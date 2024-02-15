@@ -38,3 +38,4 @@ let productSchema = new mongoose.Schema({
         default:'yes'
     }
 },{timestamps:true})
+export default mongoose.model('product',productSchema)
