@@ -15,9 +15,9 @@ const Footer: React.FC = () => {
   return (
     <Box
       sx={{
-        bgcolor: 'background.paper',
+        bgcolor: 'black',
         color: 'text.secondary',
-        py: 3,
+        py: 1,
         borderTop: '1px solid',
         borderColor: 'divider',
       }}
@@ -25,52 +25,52 @@ const Footer: React.FC = () => {
       <Container maxWidth={false} >
         <Grid container spacing={2} justifyContent="space-between">
           <Grid item xs={12} sm={6} md={3}>
-            <Typography variant="h6" color="text.primary" gutterBottom>
+            <Typography variant="h6" color="white" gutterBottom>
               Brand Name
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
-            <Typography variant="subtitle1" color="text.primary" gutterBottom>
+            <Typography variant="subtitle1" color="white" gutterBottom>
               PRODUCT
             </Typography>
-            <Link href="#" color="inherit" display="block">Features</Link>
-            <Link href="#" color="inherit" display="block">Integrations</Link>
-            <Link href="#" color="inherit" display="block">Pricing</Link>
-            <Link href="#" color="inherit" display="block">FAQ</Link>
+            <Link href="#" style={{color:'white', textDecoration:"none"}} display="block">Features</Link>
+            <Link href="#" style={{color:'white', textDecoration:"none"}} display="block">Integrations</Link>
+            <Link href="#" style={{color:'white', textDecoration:"none"}} display="block">Pricing</Link>
+            <Link href="#" style={{color:'white', textDecoration:"none"}} display="block">FAQ</Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
-            <Typography variant="subtitle1" color="text.primary" gutterBottom>
+            <Typography variant="subtitle1" color="white" gutterBottom>
               COMPANY
             </Typography>
-            <Link href="/about" color="inherit" display="block">About Us</Link>
-            <Link href="/contact" color="inherit" display="block">Contact Us</Link>
-            <Link href="/policy" color="inherit" display="block">Privacy Policy</Link>
+            <Link href="/about" style={{color:'white', textDecoration:"none"}} display="block">About Us</Link>
+            <Link href="/contact" style={{color:'white', textDecoration:"none"}} display="block">Contact Us</Link>
+            <Link href="/policy" style={{color:'white', textDecoration:"none"}} display="block">Privacy Policy</Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
-            <Typography variant="subtitle1" color="text.primary" gutterBottom>
+            <Typography variant="subtitle1" color="white" gutterBottom>
               DEVELOPERS
             </Typography>
-            <Link href="#" color="inherit" display="block">Public API</Link>
-            <Link href="#" color="inherit" display="block">Documentation</Link>
-            <Link href="#" color="inherit" display="block">Guides</Link>
+            <Link href="#" style={{color:'white', textDecoration:"none"}} display="block">Public API</Link>
+            <Link href="#" style={{color:'white', textDecoration:"none"}} display="block">Documentation</Link>
+            <Link href="#" style={{color:'white', textDecoration:"none"}} display="block">Guides</Link>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
-            <Typography variant="subtitle1" color="text.primary" gutterBottom>
+            <Typography variant="subtitle1" color="white" gutterBottom>
               SOCIAL MEDIA
             </Typography>
-            <IconButton aria-label="Facebook" color="inherit" component="a" href={socialMediaLinks.facebook}>
+            <IconButton aria-label="Facebook" style={{color:'white', textDecoration:"none"}} component="a" href={socialMediaLinks.facebook}>
               <FacebookIcon />
             </IconButton>
-            <IconButton aria-label="Twitter" color="inherit" component="a" href={socialMediaLinks.twitter}>
+            <IconButton aria-label="Twitter" style={{color:'white', textDecoration:"none"}} component="a" href={socialMediaLinks.twitter}>
               <TwitterIcon />
             </IconButton>
-            <IconButton aria-label="Instagram" color="inherit" component="a" href={socialMediaLinks.instagram}>
+            <IconButton aria-label="Instagram" style={{color:'white', textDecoration:"none"}} component="a" href={socialMediaLinks.instagram}>
               <InstagramIcon />
             </IconButton>
           </Grid>
         </Grid>
-        <Typography variant="body2" color="text.secondary" align="center" sx={{ pt: 4 }}>
-          © 2024 Company Co. All rights reserved.
+        <Typography variant="body2" color="white" align="center" sx={{ pt: 4 }}>
+          © {new Date().getFullYear()} Company Co. All rights reserved.
         </Typography>
       </Container>
     </Box>

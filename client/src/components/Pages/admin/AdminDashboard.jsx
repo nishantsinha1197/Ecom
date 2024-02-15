@@ -5,7 +5,7 @@ import AdminDashboardMenu from "../../AdminDashboardMenu";;
 
 function AdminDashboard() {
   return (
-    <Layout>
+    <Layout title="admin-dashboard">
       <div className="container">
         <Typography
           style={{ textAlign: "center", fontWeight: "bold", fontSize: "50px" }}

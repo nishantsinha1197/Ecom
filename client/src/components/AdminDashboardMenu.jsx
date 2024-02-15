@@ -7,7 +7,12 @@ import PeopleIcon from '@mui/icons-material/People';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
 const AdminDashboardMenu = () => {
-  let navStyle={textDecoration:"none"}
+  const listItemStyle = {
+    height: 'auto', // Set height to auto for dynamic height based on content
+    padding: '8px 16px', // Adjust padding as needed
+    textDecoration: 'none',
+  };
+
   return (
     <Drawer
       variant="permanent"
@@ -15,6 +20,7 @@ const AdminDashboardMenu = () => {
         flexShrink: 0,
         '& .MuiDrawer-paper': {
           width: 240,
+          height:'auto',
           boxSizing: 'border-box',
           marginTop: 10,
           display: 'flex',
@@ -25,30 +31,31 @@ const AdminDashboardMenu = () => {
     >
       <Toolbar />
       <List style={{ flexGrow: 1 }}>
-        <ListItem  sx={navStyle} button component={Link} to="/dashboard/admin/create-category">
+        <ListItem button component={Link} to="/dashboard/admin/create-category" sx={listItemStyle}>
           <ListItemIcon>
             <CategoryIcon />
           </ListItemIcon>
           <ListItemText primary="Create-Category" />
         </ListItem>
-        <ListItem  sx={navStyle} button component={Link} to="/dashboard/admin/create-product">
+        <ListItem button component={Link} to="/dashboard/admin/create-product" sx={listItemStyle}>
           <ListItemIcon>
             <ShoppingCartIcon />
-          </ListItemIcon> 
+          </ListItemIcon>
           <ListItemText primary="Create-Product" />
         </ListItem>
-        <ListItem sx={navStyle} button component={Link} to="/dashboard/admin/users">
+        <ListItem button component={Link} to="/dashboard/admin/users" sx={listItemStyle}>
           <ListItemIcon>
             <PeopleIcon />
           </ListItemIcon>
           <ListItemText primary="Users" />
         </ListItem>
-        <ListItem  sx={navStyle} button component={Link} to="/dashboard/admin/all-orders">
+        <ListItem button component={Link} to="/dashboard/admin/all-orders" sx={listItemStyle}>
           <ListItemIcon>
             <AssignmentIcon />
           </ListItemIcon>
           <ListItemText primary="Orders" />
         </ListItem>
+        
       </List>
     </Drawer>
   );
