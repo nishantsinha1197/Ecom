@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
         <Grid container spacing={2} justifyContent="space-between">
           <Grid item xs={12} sm={6} md={3}>
             <Typography variant="h6" color="white" gutterBottom>
-              Brand Name
+              ECOM
             </Typography>
           </Grid>
           <Grid item xs={6} sm={3} md={2}>
