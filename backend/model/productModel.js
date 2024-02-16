@@ -1,8 +1,9 @@
-import mongoose from "mongoose";
-let productSchema = new mongoose.Schema({
+import mongoose from "mongoose"
+//this is my productSchema
+let productSchema= new mongoose.Schema({
     name:{
         type:String,
-        require :true
+        require:true
     },
     slug:{
         type:String,
@@ -18,20 +19,24 @@ let productSchema = new mongoose.Schema({
         require:true
     },
     brand:{
-        type:String
+        type:String,
     },
     description:{
         type:String,
         require:true
     },
     images:[{
-        type:String,
-        require:true
+        url:{
+            type:String
+        },
+        public_id:{
+            type:String
+        }
     }],
     category:{
-        type:mongoose.ObjectId,
-        ref:'category',
-        require:true
+         type:mongoose.ObjectId,
+         ref:"category",
+         require:true
     },
     shipping:{
         type:String,
