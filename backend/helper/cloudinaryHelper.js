@@ -9,3 +9,20 @@ export let uploadImageOnCloudinary=async(img)=>{
     }
     return images
 }
+
+//this is for deleting images from cloudinary
+export let deleteImageOnCloudinary = async(img)=> {
+    for(let i=0;i<img.length;i++){
+        await cloudinary.uploader.destroy(img[i].public_id,function(err){
+            if(err){
+                console.log('Error deleting images:',err);
+            }
+            else{
+                //console.log('Images deleted successfully');
+                return true
+            }
+        })
+    }
+    
+}
+
