@@ -10,13 +10,14 @@ export let createCategoryController = async(req,res)=>{
         }
         // let slug = slugify(name);
         // console.log('Generated slug:', slug);
-        let category = await new categoryModel({name,slug:slugify(name)}).save()
-        res.status(201).send({message:'Category creation successful',category,success:true})
+       
         //Checking if category is present in the database
-        let result = await new categoryModel.findOne({name:name})
+        let result = await  categoryModel.findOne({name:name})
         if(result){
             res.status(200).send({message:'Category already exists',success:false})
         }
+        let category = await new categoryModel({name,slug:slugify(name)}).save()
+        res.status(201).send({message:'Category creation successful',category,success:true})
     }
     catch(err){
         console.log(err);

@@ -5,6 +5,7 @@ import axios from 'axios'
 export let categoryContext = createContext()
 function CategoryContext({children}) {
     let [categories,setCategories] = useState([])
+    let [changeCategory,setChangeCategory] = useState(false)
     async function getAllCategory(){
         try {
             let result = await axios.get('/api/v1/all-category')
@@ -16,9 +17,9 @@ function CategoryContext({children}) {
     }
     useEffect(()=>{
         getAllCategory()
-    },[])
+    },[changeCategory])
   return (
-    <categoryContext.Provider value={categories}>{children}</categoryContext.Provider>
+<categoryContext.Provider value={{categories,changeCategory,setChangeCategory}}>{children}</categoryContext.Provider>
   )
 }
 
