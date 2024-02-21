@@ -109,7 +109,7 @@ function CreateProduct() {
               Create Product
             </Typography>
             <hr />
-            <FormControl style={{ width: "100%", marginBottom: "30px" }}>
+            <FormControl style={{ width: "100%", marginBottom: "10px" }}>
               <InputLabel>Select a category</InputLabel>
               <Select value={category} onChange={categoryChange} fullWidth>
                 {categories?.map((item,i) => (
@@ -119,7 +119,7 @@ function CreateProduct() {
                 ))}
               </Select>
             </FormControl>
-            <div className="mt-4">
+            <div className="mt-4" style={{marginBottom:"10px"}} >
               <Upload
                 listType="picture"
                 onChange={({ fileList }) => {
@@ -131,8 +131,8 @@ function CreateProduct() {
                 multiple
                 accept="image/*"
               >
-                <Button icon={<UploadOutlined />} style={{ color: "red" }}>
-                  Upload
+                <Button icon={<UploadOutlined />}  variant="contained" color="secondary" >
+                  Upload Images
                 </Button>
               </Upload>
             </div>
