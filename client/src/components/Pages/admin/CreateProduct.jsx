@@ -12,8 +12,13 @@ import {
   InputLabel,
   MenuItem,
 } from "@material-ui/core";
-// import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import { UploadOutlined } from "@ant-design/icons";
+import { Upload } from "antd";
 import useCategory from "../../../hook/useCategory";
+import toast from "react-hot-toast";
+import axios from "axios";
+import { useAuth } from "../../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function CreateProduct() {
   let { categories } = useCategory();
@@ -26,11 +31,53 @@ function CreateProduct() {
   let [shipping, setShipping] = useState("");
   let [quantity, setQuantity] = useState("");
 
+  let [auth] = useAuth();
+  let navigate = useNavigate()
   function categoryChange(value) {
     setCategory(value);
   }
-  function fileChangeHandler({ fileList }) {
-    setImages(fileList);
+  // function fileChangeHandler({ fileList }) {
+  //   setImages(fileList);
+  // }
+  async function submitProductHandler(e) {
+    try {
+      if (
+        !category ||
+        !name ||
+        !description ||
+        !brand ||
+        !price ||
+        !quantity ||
+        !shipping
+      ) {
+        toast("All fields are required");
+      }
+      if (images.length === 0) {
+        toast("Please upload images");
+      }
+      let formData = new FormData();
+      formData.append("name", name);
+      formData.append("category", category.target.value);
+      formData.append("description", description);
+      formData.append("brand", brand);
+      formData.append("price", price);
+      formData.append("quantity", quantity);
+      formData.append("shipping", shipping.target.value);
+      console.log(formData);
+      for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i].originFileObj);
+      }
+      let res= await axios.post('/api/v1/create-product',formData,{headers:{"Content-Type":"multipart/form-data",Authorization:auth.token,}})
+      if(res.data.success)
+      {
+         toast(res.data.message)
+         navigate('/dashboard/admin/products')
+      }
+    } catch (err) {
+      console.log(err);
+    }
+    e.preventDefault();
+    console.log(name, price, brand, description, images, shipping, quantity,category);
   }
   return (
     <Layout title={"Create Product - Ecomm"}>
@@ -65,27 +112,29 @@ function CreateProduct() {
             <FormControl style={{ width: "100%", marginBottom: "30px" }}>
               <InputLabel>Select a category</InputLabel>
               <Select value={category} onChange={categoryChange} fullWidth>
-                {categories?.map((item) => (
-                  <MenuItem key={item._id} value={item._id}>
+                {categories?.map((item,i) => (
+                  <MenuItem key={i} value={item._id}>
                     {item.name}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-            <div style={{ marginBottom: "30px" }}>
-              <input
-                accept="image/*"
-                style={{ display: "none" }}
-                id="upload-image"
+            <div className="mt-4">
+              <Upload
+                listType="picture"
+                onChange={({ fileList }) => {
+                  setImages(fileList);
+                }}
+                customRequest={() => false}
+                beforeUpload={() => false}
+                maxCount={4}
                 multiple
-                type="file"
-                onChange={fileChangeHandler}
-              />
-              <label htmlFor="upload-image">
-                <Button variant="contained" color="secondary" component="span">
+                accept="image/*"
+              >
+                <Button icon={<UploadOutlined />} style={{ color: "red" }}>
                   Upload
                 </Button>
-              </label>
+              </Upload>
             </div>
             <TextField
               variant="outlined"
@@ -93,6 +142,10 @@ function CreateProduct() {
               type="text"
               fullWidth
               style={{ marginBottom: "30px" }}
+              onChange={(e) => {
+                setName(e.target.value);
+              }}
+              value={name}
             />
             <TextField
               variant="outlined"
@@ -100,6 +153,10 @@ function CreateProduct() {
               type="text"
               fullWidth
               style={{ marginBottom: "30px" }}
+              onChange={(e) => {
+                setDescrition(e.target.value);
+              }}
+              value={description}
             />
             <TextField
               variant="outlined"
@@ -107,6 +164,10 @@ function CreateProduct() {
               type="text"
               fullWidth
               style={{ marginBottom: "30px" }}
+              onChange={(e) => {
+                setBrand(e.target.value);
+              }}
+              value={brand}
             />
             <TextField
               variant="outlined"
@@ -114,6 +175,10 @@ function CreateProduct() {
               type="text"
               fullWidth
               style={{ marginBottom: "30px" }}
+              onChange={(e) => {
+                setPrice(e.target.value);
+              }}
+              value={price}
             />
             <TextField
               variant="outlined"
@@ -121,16 +186,30 @@ function CreateProduct() {
               type="number"
               fullWidth
               style={{ marginBottom: "30px" }}
+              onChange={(e) => {
+                setQuantity(e.target.value);
+              }}
+              value={quantity}
             />
             <FormControl style={{ width: "100%", marginBottom: "30px" }}>
               <InputLabel>Shipping</InputLabel>
-              <Select fullWidth defaultValue="">
+              <Select
+                fullWidth
+                defaultValue=""
+                onChange={(value) => {
+                  setShipping(value);
+                }}
+              >
                 <MenuItem value="yes">YES</MenuItem>
                 <MenuItem value="no">NO</MenuItem>
               </Select>
             </FormControl>
             <div style={{ marginBottom: "50px" }}>
-              <Button variant="contained" color="primary">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={submitProductHandler}
+              >
                 Create Product
               </Button>
             </div>

@@ -7,17 +7,18 @@ export let createProductController = async (req, res) => {
     try{
         let {name,price,quantity,description,category,brand,shipping}=req.body
         let images=req.files
-      if(!name || !price || !quantity || !description || !category || !brand || !shipping)    
-      {
-        return  res.status(200).send({message:"All fields are required *"})
-      } 
-      if(images.length==0)
-      {
-           return res.status(200).send({message:"At least Upload one image"}) 
-      }
-      let image= await uploadImageOnCloudinary(req.files)
-      let product = await new productModel({name,price,quantity,description,category,brand,shipping,images:image}).save()
-      res.status(201).send({message:"Product Created Successful",success:true,product})
+        if(!name || !price || !quantity || !description || !category || !brand || !shipping)    
+        {
+            return  res.status(200).send({message:"All fields are required *"})
+        } 
+        if(images.length==0)
+        {
+            return res.status(200).send({message:"At least Upload one image"}) 
+        }
+        let image= await uploadImageOnCloudinary(req.files)
+        console.log(category);
+        let product = await new productModel({name,price,quantity,description,category,brand,shipping,images:image}).save()
+        res.status(201).send({message:"Product Created Successful",success:true,product})
   }
   catch(err)
   {

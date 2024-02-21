@@ -43,6 +43,12 @@ const AdminDashboardMenu = () => {
           </ListItemIcon>
           <ListItemText primary="Create-Product" />
         </ListItem>
+        <ListItem button component={Link} to="/dashboard/admin/products" sx={listItemStyle}>
+          <ListItemIcon>
+            <ShoppingCartIcon />
+          </ListItemIcon>
+          <ListItemText primary="Products" />
+        </ListItem>
         <ListItem button component={Link} to="/dashboard/admin/users" sx={listItemStyle}>
           <ListItemIcon>
             <PeopleIcon />
