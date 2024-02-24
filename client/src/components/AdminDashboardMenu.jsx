@@ -60,8 +60,7 @@ const AdminDashboardMenu = () => {
             <AssignmentIcon />
           </ListItemIcon>
           <ListItemText primary="Orders" />
-        </ListItem>
-        
+        </ListItem>       
       </List>
     </Drawer>
   );

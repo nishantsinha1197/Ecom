@@ -81,7 +81,7 @@ function CreateProduct() {
   }
   return (
     <Layout title={"Create Product - Ecomm"}>
-      <Container style={{ marginTop: "20px" }}>
+      <Container style={{ marginTop: "20px", width:'50%' }}>
         <Typography
           variant="h1"
           style={{
@@ -109,7 +109,7 @@ function CreateProduct() {
               Create Product
             </Typography>
             <hr />
-            <FormControl style={{ width: "100%", marginBottom: "10px" }}>
+            <FormControl style={{ width: "100%" }}>
               <InputLabel>Select a category</InputLabel>
               <Select value={category} onChange={categoryChange} fullWidth>
                 {categories?.map((item,i) => (
@@ -119,7 +119,7 @@ function CreateProduct() {
                 ))}
               </Select>
             </FormControl>
-            <div className="mt-4" style={{marginBottom:"10px"}} >
+            <div className="mt-4" style={{marginBottom:"20px"}} >
               <Upload
                 listType="picture"
                 onChange={({ fileList }) => {
