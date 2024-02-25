@@ -6,7 +6,6 @@ import useProduct from "../../../hook/useProduct";
 import { Link } from "react-router-dom";
 function Products() {
   let { error, loading, products } = useProduct();
-  console.log(products);
   return (
     <Layout title="All Products-Ecom">
       <Container>

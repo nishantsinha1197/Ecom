@@ -24,7 +24,6 @@ function Header() {
   const handleLogout = () => {
     setAuth({ user: "", token: null });
   };
-  console.log(auth);
   return (
     <AppBar position="static">
       <Toolbar>
