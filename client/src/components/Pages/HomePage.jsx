@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
 import { useAuth } from "../../context/AuthContext";
 import { Container, Grid, Card, CardContent, Typography } from "@mui/material";
@@ -6,12 +6,15 @@ import { Checkbox, Radio } from "antd";
 import useProduct from "../../hook/useProduct";
 import useCategory from "../../hook/useCategory";
 import Price from "../../components/Price.js";
+import Button from "@mui/material/Button";
+import axios from "axios";
 function HomePage() {
   let [auth] = useAuth();
   let { error, loading, products } = useProduct();
   let { categories } = useCategory();
   let [selectedCategory, setSelectedCategory] = useState([]);
   let [price, setPrice] = useState("");
+  let [filterData,setFilterData] = useState([])
 
   function changeCategoryHandler(e, id) {
     let all = [...selectedCategory];
@@ -28,7 +31,16 @@ function HomePage() {
   function priceHandler(e) {
     setPrice(e.target.value);
   }
-
+  async function filterHandler(){
+    let res = await axios.post('/api/v1/filter-product',{
+      price,
+      checked:selectedCategory
+    })
+    setFilterData(res.data.products)
+  }
+  useEffect(()=>{
+    filterHandler();
+  },[price,selectedCategory])
   return (
     <Layout title="Best Offer -ecomm">
       {/* {JSON.stringify(auth,9,null)} */}
@@ -62,6 +74,7 @@ function HomePage() {
               <Typography variant="h6" mt={2} fontSize="26px">
                 Filter By Price
               </Typography>
+              <hr />
               <Radio.Group onChange={priceHandler}>
                 {Price.map((item) => {
                   return (
@@ -71,6 +84,11 @@ function HomePage() {
                   );
                 })}
               </Radio.Group>
+            </div>
+            <div className="mt-2">
+              <Button style={{backgroundColor:"red", color:'white', marginBottom:"20px"}} onClick={()=>{
+                window.location.reload()
+              }}>CLEAR ALL</Button>
             </div>
           </Grid>
           <Grid item xs={12} md={10}>
@@ -84,7 +102,7 @@ function HomePage() {
                 {!loading && error && <h1>Something went wrong....</h1>}
                 {!loading && products.length > 0 && (
                   <>
-                    {products?.map((item, i) => {
+                    {(selectedCategory.length >0 || price ? filterData :products)?.map((item, i) => {
                       let {
                         name = "unknown",
                         description = "content will load",
@@ -95,20 +113,16 @@ function HomePage() {
                         _id,
                       } = item;
                       return (
-                        <Grid item xs={12} sm={6} md={4} lg={3}>
-                          <Card
-                            key={i}
-                            variant="outlined"
-                            style={{
-                              height: "400px",
-                              marginBottom: "20px",
-                              border: "1px black solid",
-                            }}
-                          >
+                        <Grid item xs={12} sm={6} md={4} key={i}>
+                          <Card variant="outlined" style={{ height: "100%" }}>
                             <CardContent>
-                              <div>
+                              <div style={{ marginBottom: "20px" }}>
                                 <img
-                                  src={images.length === 0 ? "" : images[0].url}
+                                  src={
+                                    item.images.length === 0
+                                      ? ""
+                                      : item.images[0].url
+                                  }
                                   alt="something"
                                   className="img-fluid"
                                   style={{ width: "100%" }}
@@ -119,6 +133,29 @@ function HomePage() {
                                 {description}
                               </Typography>
                               <Typography variant="body1">$ {price}</Typography>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  marginTop: "20px",
+                                }}
+                              >
+                                <Button
+                                  variant="contained"
+                                  color="secondary"
+                                  size="small"
+                                  style={{ marginRight: "10px" }}
+                                >
+                                  More Details
+                                </Button>
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  size="small"
+                                >
+                                  ADD TO CART
+                                </Button>
+                              </div>
                             </CardContent>
                           </Card>
                         </Grid>

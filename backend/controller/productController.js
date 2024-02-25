@@ -91,3 +91,21 @@ export let updateProductController = async(req,res)=>{
         res.status(500).send({message:"Something went wrong while updating",success:false,err})
     }
 }
+//Filter product controller
+export let filterProductController=async(req,res)=>{
+    console.log(req.body)
+    try{
+          let {price,checked}=req.body
+          let args={}
+          if(checked.length>0) args.category=checked
+          if(price) args.price={$gte:price[0],$lte:price[1]}
+          const products=await productModel.find(args)
+          res.status(200).send({message:"All Filter Data",products,success:true})  
+    }
+    catch(err)
+    {
+      console.log(err)
+      res.status(500).send({message:"Somthing wrong while filtering",success:false,err})
+    }
+    let {price,category}=req.body
+  }
