@@ -154,8 +154,8 @@ function CreateCategory() {
                                 </Button>
                                 <Button
                                   variant="contained"
-                                  color="error"
                                   className="ms-3"
+                                  style={{backgroundColor:"red"}}
                                   onClick={() => {
                                     deleteCategoryHandler(_id);
                                   }}

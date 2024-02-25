@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import useProduct from "../../../hook/useProduct";
 
 function CreateProduct() {
   let { categories } = useCategory();
@@ -30,6 +31,7 @@ function CreateProduct() {
   let [description, setDescrition] = useState("");
   let [shipping, setShipping] = useState("");
   let [quantity, setQuantity] = useState("");
+  let {productChange,setProductChange} =  useProduct()
 
   let [auth] = useAuth();
   let navigate = useNavigate()
@@ -71,6 +73,7 @@ function CreateProduct() {
       if(res.data.success)
       {
          toast(res.data.message)
+         setProductChange(!productChange)
          navigate('/dashboard/admin/products')
       }
     } catch (err) {

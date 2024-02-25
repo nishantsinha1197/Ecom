@@ -61,7 +61,7 @@ export let deleteProductController = async (req, res) => {
       success: true,
       deleteProduct,
     });
-    res.send(data);
+    // res.send(data);
 };
 
 //For updating product
@@ -69,23 +69,24 @@ export let updateProductController = async(req,res)=>{
     try {
         let {name,price,quantity,brand,description,category,shipping} = req.body
         let {id} = req.params
-        console.log(id);
         if(!name || !price || !quantity || !description || !category || !brand || !shipping)    
         {
             return  res.status(200).send({message:"All fields are required *"})
         } 
         else{
-            let findData = await productModel.findOne({ _id: id });
-            await deleteImageOnCloudinary(findData.images);
-            let image = await uploadImageOnCloudinary(req.files);
+            let findData = await productModel.findOne({ _id: id })
+            let image
+            if(req.files.length>0){
+                await deleteImageOnCloudinary(findData.images);
+                image= await uploadImageOnCloudinary(req.files)
+            }
             let product = await productModel.findByIdAndUpdate(
               { _id: id },
-              { ...req.body,images:image },
+              { ...req.body,images:image?image:findData.images },
               { new: true }
             );
             res.status(200).send({message:'Product updated successfully',success:true,product})
-        }
-        
+        }     
     } catch (err) {
         res.status(500).send({message:"Something went wrong while updating",success:false,err})
     }

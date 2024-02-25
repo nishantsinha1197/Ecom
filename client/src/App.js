@@ -19,6 +19,7 @@ import CreateProduct from './components/Pages/admin/CreateProduct'
 import AllOrders from './components/Pages/admin/AllOrders'
 import Users from './components/Pages/admin/Users'
 import Products from './components/Pages/admin/Products'
+import UpdateProduct from './components/Pages/admin/UpdateProduct'
 function App() {
   return (
     <Routes>
@@ -40,6 +41,7 @@ function App() {
         <Route path ='admin/create-category' element={<CreateCategory/>}/>
         <Route path ='admin/create-product' element={<CreateProduct/>}/>
         <Route path='admin/products' element = {<Products/>}/>
+        <Route path='admin/products/:id' element={<UpdateProduct/>} />
         <Route path="admin/all-orders" element={<AllOrders/>}/>
         <Route path="admin/users" element={<Users/>}/>
       </Route>
