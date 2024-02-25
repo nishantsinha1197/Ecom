@@ -1,5 +1,5 @@
 import express from 'express'
-import { createProductController, deleteProductController, filterProductController, getAllProductController, getSingleProductController, updateProductController } from '../controller/productController.js'
+import { createProductController, deleteProductController, filterProductController, getAllProductController, getSingleProductController, totalProductController, updateProductController } from '../controller/productController.js'
 import uploads from '../config/multer.js'
 import { isAdmin, isRequire } from '../middleware/authMiddleware.js'
 let route = express.Router()
@@ -17,3 +17,5 @@ route.delete('/delete-product/:id',isRequire,isAdmin,deleteProductController)
 route.put('/update-product/:id',isRequire,isAdmin,uploads.array('images',4),updateProductController)
 //filter-product || POST
 route.post('/filter-product',filterProductController)
+//totalProductCount || GET
+route.get('/totalProduct',totalProductController)

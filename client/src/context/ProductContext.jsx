@@ -14,6 +14,7 @@ let initialState = {
   loading: "false",
   products: [],
   product: {},
+  total:'',
   error: "",
   single_loader: false,
   single_error: "",

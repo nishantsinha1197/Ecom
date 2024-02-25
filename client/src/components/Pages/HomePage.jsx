@@ -10,11 +10,12 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 function HomePage() {
   let [auth] = useAuth();
-  let { error, loading, products } = useProduct();
+  let { error, loading, products,total } = useProduct();
   let { categories } = useCategory();
   let [selectedCategory, setSelectedCategory] = useState([]);
   let [price, setPrice] = useState("");
   let [filterData,setFilterData] = useState([])
+  let [filterCount,setFilterCount] = useState('')
 
   function changeCategoryHandler(e, id) {
     let all = [...selectedCategory];
@@ -96,6 +97,7 @@ function HomePage() {
               All Product List
             </Typography>
             <hr />
+            <p className="text-end">{price || selectedCategory.length>0 ? <p>{filterData.length}/{total} results found</p>:`${total} results found`}</p>
             <Container>
               <Grid container spacing={2} justifyContent="center">
                 {loading && <h4>loading...</h4>}
