@@ -10,12 +10,12 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 function HomePage() {
   let [auth] = useAuth();
-  let { error, loading, products,total } = useProduct();
+  let { error, loading, products, total } = useProduct();
   let { categories } = useCategory();
   let [selectedCategory, setSelectedCategory] = useState([]);
   let [price, setPrice] = useState("");
-  let [filterData,setFilterData] = useState([])
-  let [filterCount,setFilterCount] = useState('')
+  let [filterData, setFilterData] = useState([]);
+  let [filterCount, setFilterCount] = useState("");
 
   function changeCategoryHandler(e, id) {
     let all = [...selectedCategory];
@@ -32,16 +32,16 @@ function HomePage() {
   function priceHandler(e) {
     setPrice(e.target.value);
   }
-  async function filterHandler(){
-    let res = await axios.post('/api/v1/filter-product',{
+  async function filterHandler() {
+    let res = await axios.post("/api/v1/filter-product", {
       price,
-      checked:selectedCategory
-    })
-    setFilterData(res.data.products)
+      checked: selectedCategory,
+    });
+    setFilterData(res.data.products);
   }
-  useEffect(()=>{
+  useEffect(() => {
     filterHandler();
-  },[price,selectedCategory])
+  }, [price, selectedCategory]);
   return (
     <Layout title="Best Offer -ecomm">
       {/* {JSON.stringify(auth,9,null)} */}
@@ -87,9 +87,18 @@ function HomePage() {
               </Radio.Group>
             </div>
             <div className="mt-2">
-              <Button style={{backgroundColor:"red", color:'white', marginBottom:"20px"}} onClick={()=>{
-                window.location.reload()
-              }}>CLEAR ALL</Button>
+              <Button
+                style={{
+                  backgroundColor: "red",
+                  color: "white",
+                  marginBottom: "20px",
+                }}
+                onClick={() => {
+                  window.location.reload();
+                }}
+              >
+                CLEAR ALL
+              </Button>
             </div>
           </Grid>
           <Grid item xs={12} md={10}>
@@ -97,14 +106,25 @@ function HomePage() {
               All Product List
             </Typography>
             <hr />
-            <p className="text-end">{price || selectedCategory.length>0 ? <p>{filterData.length}/{total} results found</p>:`${total} results found`}</p>
+            <Grid style={{ textAlign: "end", marginBottom: "10px" }}>
+              {price || selectedCategory.length > 0 ? (
+                <Typography>
+                  {filterData.length}/{total} results found
+                </Typography>
+              ) : (
+                `${total} results found`
+              )}
+            </Grid>
             <Container>
               <Grid container spacing={2} justifyContent="center">
                 {loading && <h4>loading...</h4>}
                 {!loading && error && <h1>Something went wrong....</h1>}
                 {!loading && products.length > 0 && (
                   <>
-                    {(selectedCategory.length >0 || price ? filterData :products)?.map((item, i) => {
+                    {(selectedCategory.length > 0 || price
+                      ? filterData
+                      : products
+                    )?.map((item, i) => {
                       let {
                         name = "unknown",
                         description = "content will load",
