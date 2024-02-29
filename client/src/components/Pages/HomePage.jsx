@@ -6,7 +6,7 @@ import { Checkbox, Radio } from "antd";
 import useProduct from "../../hook/useProduct";
 import useCategory from "../../hook/useCategory";
 import Price from "../../components/Price.js";
-import Button from "@mui/material/Button";
+import {Button,Box} from "@mui/material";
 import axios from "axios";
 function HomePage() {
   let [auth] = useAuth();
@@ -15,8 +15,12 @@ function HomePage() {
   let [selectedCategory, setSelectedCategory] = useState([]);
   let [price, setPrice] = useState("");
   let [filterData, setFilterData] = useState([]);
-  let [filterCount, setFilterCount] = useState("");
-
+  let [limitProduct, setLimitProduct] = useState([]);
+  //product count
+  let [productCount, setProductCount] = useState("");
+  //pageCount
+  let [pageCount, setPageCount] = useState(1);
+  //this is for handling category
   function changeCategoryHandler(e, id) {
     let all = [...selectedCategory];
     let checked = e.target.checked;
@@ -29,9 +33,11 @@ function HomePage() {
     }
     setSelectedCategory([...all]);
   }
+  //this is for price handler
   function priceHandler(e) {
     setPrice(e.target.value);
   }
+  //this is filteration
   async function filterHandler() {
     let res = await axios.post("/api/v1/filter-product", {
       price,
@@ -39,6 +45,28 @@ function HomePage() {
     });
     setFilterData(res.data.products);
   }
+  //this is for product count
+  async function totalCount(){
+   try {
+      let {data} = await axios.get('/api/v1/totalProduct')
+      setProductCount(data.total)
+   } catch (err) {
+    console.log(err);
+   } 
+  }
+  //this is for product-list
+  async function productList() {
+    let { data } = await axios.get(`/api/v1/product-list/${pageCount}`);
+
+    setLimitProduct([...data.products, ...limitProduct]);
+  }
+  useEffect(() => {
+    productList();
+  }, [pageCount]);
+  //this useEffect for total count
+  useEffect(()=>{
+    totalCount()
+  })
   useEffect(() => {
     filterHandler();
   }, [price, selectedCategory]);
@@ -70,7 +98,6 @@ function HomePage() {
                 );
               })}
             </div>
-
             <div className="mt-4">
               <Typography variant="h6" mt={2} fontSize="26px">
                 Filter By Price
@@ -106,7 +133,7 @@ function HomePage() {
               All Product List
             </Typography>
             <hr />
-            <Grid style={{ textAlign: "end", marginBottom: "10px" }}>
+            <Typography style={{ textAlign: "end", marginBottom: "10px" }}>
               {price || selectedCategory.length > 0 ? (
                 <Typography>
                   {filterData.length}/{total} results found
@@ -114,17 +141,11 @@ function HomePage() {
               ) : (
                 `${total} results found`
               )}
-            </Grid>
-            <Container>
+            </Typography>
               <Grid container spacing={2} justifyContent="center">
-                {loading && <h4>loading...</h4>}
-                {!loading && error && <h1>Something went wrong....</h1>}
-                {!loading && products.length > 0 && (
-                  <>
-                    {(selectedCategory.length > 0 || price
-                      ? filterData
-                      : products
-                    )?.map((item, i) => {
+              {limitProduct.length == 0 && <Typography>loading....</Typography>}
+              {limitProduct.length > 0 &&  (
+                    (selectedCategory.length > 0 || price? filterData :limitProduct)?.map((item, i) => {
                       let {
                         name = "unknown",
                         description = "content will load",
@@ -182,13 +203,24 @@ function HomePage() {
                           </Card>
                         </Grid>
                       );
-                    })}
-                  </>
-                )}
+                    }))}
               </Grid>
-            </Container>
           </Grid>
         </Grid>
+        <Box sx={{ display: "flex", justifyContent: "center", margin: 3 }}>
+          {productCount > limitProduct.length && (
+            <Button
+              variant="contained"
+              color="warning"
+              onClick={() => {
+                setPageCount((prevPageCount) => prevPageCount + 1);
+              }}
+            >
+              LOAD MORE
+              {console.log('count',limitProduct.length)}
+            </Button>
+          )}
+        </Box>
       </Container>
     </Layout>
   );

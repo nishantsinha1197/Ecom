@@ -121,3 +121,18 @@ export let totalProductController=async(req,res)=>{
       res.status(500).send({message:"Somthing wrong while finding total Length",success:false ,err})
     }
 }
+//ProductList Controller
+export let productListController = async(req,res)=> {
+    try{
+        let {count}=req.params
+        console.log('dev test',count);
+        const page = count ?req.params.count:1
+        let perPageContent=3
+        let products = await productModel.find({}).skip((page-1)*perPageContent).limit(perPageContent)
+        res.status(200).send({message:'Products result',products,success:true})
+    }
+    catch (err){
+        console.log(err);
+        res.status(500).send({message:'Something went wrong while loading',success:false,err})
+    }
+}
