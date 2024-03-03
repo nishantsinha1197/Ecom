@@ -41,7 +41,7 @@ export let getAllProductController= async(req,res)=>{
 export let getSingleProductController= async(req,res)=>{
     try{
         let {id} = req.params
-        let product = await productModel.findOne({ _id: id });
+        let product = await productModel.findOne({ _id: id }).populate('category');
         res.status(200).send({message:'Single product fetched',product,success:true})
     }
     catch(err){
@@ -134,5 +134,19 @@ export let productListController = async(req,res)=> {
     catch (err){
         console.log(err);
         res.status(500).send({message:'Something went wrong while loading',success:false,err})
+    }
+}
+//similar product controller
+export let similarProductController = async(req,res)=>{
+    try {
+        let {p_id,c_id} = req.params;
+        // console.log('p_id',p_id);
+        let products = await productModel.find({
+            category:c_id,
+            _id:{$ne:p_id}
+        }).limit(3)
+        res.status(200).send({message:"Similar products",products,success:true})
+    } catch (err) {
+        res.status(500).send({message:"Something went wrong while fetching similar prodcuts",success:false,err})
     }
 }

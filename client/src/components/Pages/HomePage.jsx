@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../Layout/Layout";
-import { useAuth } from "../../context/AuthContext";
 import { Container, Grid, Card, CardContent, Typography } from "@mui/material";
 import { Checkbox, Radio } from "antd";
-import useProduct from "../../hook/useProduct";
 import useCategory from "../../hook/useCategory";
 import Price from "../../components/Price.js";
 import {Button,Box} from "@mui/material";
 import axios from "axios";
+import AddToCart from "../form/AddToCart.jsx";
+import MoreDetails from "../form/MoreDetails.jsx";
+import { useNavigate } from "react-router-dom";
 function HomePage() {
-  let [auth] = useAuth();
-  let { error, loading, products, total } = useProduct();
+  let navigate = useNavigate()
   let { categories } = useCategory();
   let [selectedCategory, setSelectedCategory] = useState([]);
   let [price, setPrice] = useState("");
@@ -70,6 +70,10 @@ function HomePage() {
   useEffect(() => {
     filterHandler();
   }, [price, selectedCategory]);
+  //this is for single page handler
+  function singlePageHandler(id){
+    navigate(`/product-details/${id}`)
+  }
   return (
     <Layout title="Best Offer -ecomm">
       {/* {JSON.stringify(auth,9,null)} */}
@@ -136,10 +140,10 @@ function HomePage() {
             <Typography style={{ textAlign: "end", marginBottom: "10px" }}>
               {price || selectedCategory.length > 0 ? (
                 <Typography>
-                  {filterData.length}/{total} results found
+                  {filterData.length}/{productCount} results found
                 </Typography>
               ) : (
-                `${total} results found`
+                `${productCount} results found`
               )}
             </Typography>
               <Grid container spacing={2} justifyContent="center">
@@ -183,21 +187,8 @@ function HomePage() {
                                   marginTop: "20px",
                                 }}
                               >
-                                <Button
-                                  variant="contained"
-                                  color="secondary"
-                                  size="small"
-                                  style={{ marginRight: "10px" }}
-                                >
-                                  More Details
-                                </Button>
-                                <Button
-                                  variant="contained"
-                                  color="primary"
-                                  size="small"
-                                >
-                                  ADD TO CART
-                                </Button>
+                                <MoreDetails p_id={item._id} singlePageHandler={singlePageHandler}/>
+                                <AddToCart/>
                               </div>
                             </CardContent>
                           </Card>
