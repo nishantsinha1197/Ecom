@@ -1,14 +1,20 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Card, CardContent, CardMedia, Grid, Typography, IconButton } from '@mui/material';
+import { ExpandMore as ExpandMoreIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import MoreDetails from '../form/MoreDetails';
 import AddToCart from '../form/AddToCart';
+import MoreDetails from '../form/MoreDetails';
 
 function SimilarProduct({ product }) {
     const navigate = useNavigate();
+    const [expanded, setExpanded] = useState(false);
 
     const singlePageHandler = (id) => {
         navigate(`/product-details/${id}`);
+    };
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
     };
 
     return (
@@ -17,17 +23,24 @@ function SimilarProduct({ product }) {
             {product.length > 0 &&
                 product.map((item) => (
                     <Grid item key={item._id} xs={12} md={3}>
-                    <Card style={{ maxWidth: 300, maxHeight: 400 , border:"1px black solid"}}>
-                        <CardMedia component="img" src={item?.images[0]?.url} alt={item?.images[0]?.url} style={{ height: 200 }} />
-                        <CardContent>
-                            <Typography variant="h6">{item?.name}</Typography>
-                            <Typography>{item?.description}</Typography>
-                            <Typography>{item?.brand}</Typography>
-                            <MoreDetails p_id={item._id} singlePageHandler={singlePageHandler}/>
-                            <AddToCart/>
-                        </CardContent>
-                    </Card>
-                </Grid>
+                        <Card style={{ maxWidth: 300 }}>
+                            <CardMedia component="img" src={item?.images[0]?.url} alt={item?.images[0]?.url} style={{ height: 200 }} />
+                            <CardContent>
+                                <Typography variant="h6">{item?.name}</Typography>
+                                <Typography>
+                                    {expanded ? item?.description : `${item?.description.substring(0, 100)}...`}
+                                    {!expanded && item?.description.length > 100 && (
+                                        <IconButton onClick={handleExpandClick} aria-expanded={expanded} aria-label="show more">
+                                            <ExpandMoreIcon />
+                                        </IconButton>
+                                    )}
+                                </Typography>
+                                <Typography>{item?.brand}</Typography>
+                                <MoreDetails p_id={item._id} singlePageHandler={singlePageHandler}/>
+                                <AddToCart/>
+                            </CardContent>
+                        </Card>
+                    </Grid>
                 ))}
         </Grid>
     );
