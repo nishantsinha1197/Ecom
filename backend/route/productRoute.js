@@ -1,5 +1,5 @@
 import express from 'express'
-import { createProductController, deleteProductController, filterProductController, getAllProductController, getSingleProductController, productListController, similarProductController, totalProductController, updateProductController } from '../controller/productController.js'
+import { createProductController, deleteProductController, filterProductController, getAllProductController, getSingleProductController, productListController, searchHandlerController, similarProductController, totalProductController, updateProductController } from '../controller/productController.js'
 import uploads from '../config/multer.js'
 import { isAdmin, isRequire } from '../middleware/authMiddleware.js'
 let route = express.Router()
@@ -23,3 +23,5 @@ route.get('/totalProduct',totalProductController)
 route.get('/product-list/:count',productListController)
 //similar-product || GET
 route.get('/similar-product/:p_id/:c_id',similarProductController)
+//search-product || GET
+route.get('/search-product/:keyword',searchHandlerController)

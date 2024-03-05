@@ -7,17 +7,19 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
 import CategoryContext from "./context/categoryContext";
 import ProductContext from "./context/ProductContext";
-
+import SearchContext from "./context/SearchContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
     <React.StrictMode>
       <AuthContext>
-        <CategoryContext>
-          <ProductContext>
-            <App />
-          </ProductContext>
-        </CategoryContext>
+        <SearchContext>
+          <CategoryContext>
+            <ProductContext>
+              <App />
+            </ProductContext>
+          </CategoryContext>
+        </SearchContext>
       </AuthContext>
     </React.StrictMode>
   </BrowserRouter>

@@ -150,3 +150,21 @@ export let similarProductController = async(req,res)=>{
         res.status(500).send({message:"Something went wrong while fetching similar prodcuts",success:false,err})
     }
 }
+
+//search product controller
+export let searchHandlerController = async(req,res)=>{
+    try{
+        let {keyword}=req.params;
+        let products=await productModel.find({$or:[
+           {name:{$regex:keyword,$options:'i'}},
+           {description:{$regex:keyword,$options:"i"}}
+        ]})
+        res.status(200).send({message:"Result Found",products,success:true,total:products.count})
+    
+      }
+      catch(err)
+      {
+        console.log(err)
+        res.status(500).send({message:"Something went wrong while searching products",err,success:false})
+      }
+}

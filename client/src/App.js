@@ -21,6 +21,7 @@ import Users from './components/Pages/admin/Users'
 import Products from './components/Pages/admin/Products'
 import UpdateProduct from './components/Pages/admin/UpdateProduct'
 import DetailsProduct from './components/Pages/DetailsProduct'
+import SearchPage from './components/Pages/SearchPage'
 function App() {
   return (
     <Routes>
@@ -33,6 +34,7 @@ function App() {
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/forget-password' element={<ForgetPassword/>}/>
       <Route path="/product-details/:id" element={<DetailsProduct/>} />
+      <Route path='/search' element={<SearchPage/>}/>
       <Route path='/dashboard' element={<ProtectedRoute/>}>
          <Route path='user' element={<Dashbord/>}/>
          <Route path='user/order' element= {<Order/>} />
