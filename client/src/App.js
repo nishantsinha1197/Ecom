@@ -22,6 +22,8 @@ import Products from './components/Pages/admin/Products'
 import UpdateProduct from './components/Pages/admin/UpdateProduct'
 import DetailsProduct from './components/Pages/DetailsProduct'
 import SearchPage from './components/Pages/SearchPage'
+import AllCategory from './components/Pages/AllCategory'
+import CategoryPage from './components/Pages/CategoryPage'
 function App() {
   return (
     <Routes>
@@ -35,6 +37,8 @@ function App() {
       <Route path='/forget-password' element={<ForgetPassword/>}/>
       <Route path="/product-details/:id" element={<DetailsProduct/>} />
       <Route path='/search' element={<SearchPage/>}/>
+      <Route path="/all-category" element={<AllCategory/>} />
+      <Route path="/all-category/:slug" element={<CategoryPage/>} />
       <Route path='/dashboard' element={<ProtectedRoute/>}>
          <Route path='user' element={<Dashbord/>}/>
          <Route path='user/order' element= {<Order/>} />

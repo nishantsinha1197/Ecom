@@ -1,5 +1,6 @@
 import {deleteImageOnCloudinary, uploadImageOnCloudinary} from '../helper/cloudinaryHelper.js'
 import productModel from '../model/productModel.js'
+import categoryModel from '../model/categoryModel.js'
 // import cloudinary from '../config/cloudinary'
 
 //This is for creating product
@@ -167,4 +168,16 @@ export let searchHandlerController = async(req,res)=>{
         console.log(err)
         res.status(500).send({message:"Something went wrong while searching products",err,success:false})
       }
+}
+//product category controller
+export let productCategoryController = async(req,res)=>{
+    let {slug} = req.params
+    try {
+        let category = await categoryModel.find({slug:slug})
+        let product = await productModel.find({category:category})
+        res.status(200).send({message:"Products found as per category",success:true,product,total:product.length})
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({message:'Something went wrong while fetching products with respect to category',success:false,err})
+    }
 }
