@@ -37,15 +37,15 @@ function CategoryPage() {
 
     return (
         <Layout title={"Category Page:Ecom"}>
-            <Grid container spacing={2} justifyContent="center">
+            <Grid container spacing={2} justifyContent="center" >
                 {product.length === 0 && <Typography variant="h4">Loading...</Typography>}
                 {product.map((item) => (
-                    <Grid item key={item._id} xs={12} sm={6} md={3}>
-                        <Card>
+                    <Grid item key={item._id} xs={12} sm={6} md={3} >
+                        <Card style={{border:"1px black solid", margin:"20px"}}>
                             <CardMedia
                                 component="img"
                                 image={item?.images[0]?.url}
-                                alt={item?.images[0]?.url}
+                                alt={item?.images[0]?.url}         
                             />
                             <CardContent>
                                 <Typography variant="h6" component="h2">{item?.name}</Typography>
