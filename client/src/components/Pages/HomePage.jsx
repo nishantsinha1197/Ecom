@@ -161,7 +161,7 @@ function HomePage() {
                       } = item;
                       return (
                         <Grid item xs={12} sm={6} md={4} key={i}>
-                          <Card variant="outlined" style={{ height: "100%" }}>
+                          <Card variant="outlined" style={{ height: "100%", border:"1px black solid" }}>
                             <CardContent>
                               <div style={{ marginBottom: "20px" }}>
                                 <img
