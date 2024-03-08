@@ -52,7 +52,7 @@ function CategoryPage() {
                                 <Typography variant="body2" color="textSecondary" component="p">{item?.description}</Typography>
                                 <Typography variant="body2" color="textSecondary" component="p">{item?.brand}</Typography>
                                 <MoreDetails p_id={item._id} singlePageHandler={singlePageHandler} />
-                                <AddToCart />
+                                <AddToCart prod={item}/>
                             </CardContent>
                         </Card>
                     </Grid>

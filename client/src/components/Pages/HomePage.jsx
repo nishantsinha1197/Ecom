@@ -188,7 +188,7 @@ function HomePage() {
                                 }}
                               >
                                 <MoreDetails p_id={item._id} singlePageHandler={singlePageHandler}/>
-                                <AddToCart/>
+                                <AddToCart prod={item}/>
                               </div>
                             </CardContent>
                           </Card>

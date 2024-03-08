@@ -8,6 +8,7 @@ import { AuthContext } from "./context/AuthContext";
 import CategoryContext from "./context/categoryContext";
 import ProductContext from "./context/ProductContext";
 import SearchContext from "./context/SearchContext";
+import CartContext from './context/CartContext'
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
@@ -16,7 +17,9 @@ root.render(
         <SearchContext>
           <CategoryContext>
             <ProductContext>
-              <App />
+              <CartContext>
+                <App />
+              </CartContext>
             </ProductContext>
           </CategoryContext>
         </SearchContext>

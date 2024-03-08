@@ -6,25 +6,30 @@ import Button from "@mui/material/Button";
 import { NavLink, Link } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl"; // Added this import
-import Select from "@mui/material/Select"; // Added this import
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import Search from "../form/Search";
 import useCategory from "../../hook/useCategory.js";
 import { useAuth } from "../../context/AuthContext";
+import Badge from "@mui/material/Badge";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import Avatar from "@mui/material/Avatar";
+import useCart from "../../hook/useCart.js";
 
-const navItems = ["HOME", "CATEGORY", "CART(0)"];
+const navItems = ["HOME", "CATEGORY"];
 const routeMapping = {
   HOME: "/",
   CATEGORY: "/category",
   REGISTER: "/signup",
   LOGIN: "/signin",
-  "CART(0)": "/cart",
+  CART: "/cart",
 };
 
 function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [auth, setAuth] = useAuth();
   const { categories } = useCategory();
+  let [cart] = useCart()
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -116,6 +121,13 @@ function Header() {
             </NavLink>
           </React.Fragment>
         )}
+        <NavLink to={routeMapping["CART"]} style={{ textDecoration: "none", color: "#fff" }}>
+          <Badge badgeContent={cart.length} color="secondary">
+            <Avatar>
+              <ShoppingCartIcon />
+            </Avatar>
+          </Badge>
+        </NavLink>
       </Toolbar>
     </AppBar>
   );

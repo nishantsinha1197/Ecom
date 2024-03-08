@@ -62,7 +62,7 @@ function SearchPage() {
                         </Typography>
                         <Typography variant="body2">{item?.brand}</Typography>
                         <MoreDetails p_id={item._id} singlePageHandler={singlePageHandler} />
-                        <AddToCart />
+                        <AddToCart prod={item} />
                       </CardContent>
                     </Card>
                   </Grid>     

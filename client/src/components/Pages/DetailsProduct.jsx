@@ -198,7 +198,7 @@ function DeatailsProduct() {
                     <Typography variant="body1" gutterBottom>
                       <strong>MRP : </strong>${product?.price}
                     </Typography>
-                    <AddToCart />
+                    <AddToCart prod={product}/>
                     <Typography
                       variant="body1"
                       gutterBottom

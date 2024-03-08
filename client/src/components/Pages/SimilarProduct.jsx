@@ -37,7 +37,7 @@ function SimilarProduct({ product }) {
                                 </Typography>
                                 <Typography>{item?.brand}</Typography>
                                 <MoreDetails p_id={item._id} singlePageHandler={singlePageHandler}/>
-                                <AddToCart/>
+                                <AddToCart prod={item}/>
                             </CardContent>
                         </Card>
                     </Grid>
