@@ -44,6 +44,7 @@ function Checkout() {
     if (data.ok) {
       setCart([]);
       toast('Order Successful');
+      navigate('/dashboard/user/order')
     }
   }
 
