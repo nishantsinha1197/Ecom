@@ -24,7 +24,9 @@ function Checkout() {
         }
     }, 0);
   }
-
+  function updateAddressHandler(){
+    navigate('/dashboard/user/profile',{state:"/cart"})
+  }
   function loginHandler() {
     navigate("/signin", { state: "/cart" });
   }
@@ -89,7 +91,7 @@ function Checkout() {
               ))}
             </Grid>
           </Grid>
-          <Grid item md={5}>
+          {cart.length>0 && <Grid item md={5}>
             <Typography variant="h4" align="center" gutterBottom>Cart Summary</Typography>
             <Typography align="center"> Total | Checkout | Payment</Typography>
             <hr />
@@ -103,13 +105,13 @@ function Checkout() {
                   <>
                     <Typography variant="body1" align="center">Current Address</Typography>
                     <Typography variant="body1" align="center"><strong>{auth?.user?.address}</strong></Typography>
-                    <Button variant="contained" color="warning">Update Address</Button>
+                    <Button variant="contained" color="warning" onClick={updateAddressHandler}>Update Address</Button>
                   </>
                 ) : (
-                  <Button variant="contained" color="warning">Update Address</Button>
+                  <Button variant="contained" color="warning" onClick={updateAddressHandler}>Update Address</Button>
                 )
               )}
-              {clientToken && (
+              {auth.token && clientToken && (
                 <Grid item>
                   <DropIn
                     options={{
@@ -131,7 +133,7 @@ function Checkout() {
                 </Grid>
               )}
             </Grid>
-          </Grid>
+          </Grid>}
         </Grid>
       </Container>
     </Layout>

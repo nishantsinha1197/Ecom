@@ -1,8 +1,11 @@
 import express from 'express'
-import { isRequire } from '../middleware/authMiddleware.js'
-import { userOrderController } from '../controller/orderController.js'
+import { isAdmin, isRequire } from '../middleware/authMiddleware.js'
+import { allOrderController, updateOrderStatusController, userOrderController } from '../controller/orderController.js'
 let route=express.Router()
-//order || get (userOrder)
-//testing
+//order || GET (userOrder)
 route.get('/order',isRequire,userOrderController)
 export default route
+//order || GET (all-order)
+route.get('/all-order',isRequire,isAdmin,allOrderController)
+//Update status ||PUT
+route.put('/update-order/:id',isRequire,isAdmin, updateOrderStatusController)

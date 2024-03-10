@@ -128,3 +128,30 @@ export let restPasswordHandler = async (req, res) => {
     .status(200)
     .send({ message: "Password Update Successful", success: true });
 };
+//this is for update user-profile
+export let profileUpdateController=async(req,res)=>{
+  try{
+    let {name,address,phone,password}=req.body
+    if(!name || !address || !phone)
+    {
+      return res.staus(200).send({message:"All fileld required *",success:false})
+    }
+    else{
+      let findData=await usersModel.find({_id:req.user._id})
+      if(findData)
+      {
+        let newPassword=password ? await  encryptPassword(password) :findData.password;
+        let updateData= await usersModel.findByIdAndUpdate({_id:req.user._id},{...req.body,password:newPassword},{new:true})
+        res.status(200).send({message:"Profile is Updated successful",success:true,user:updateData})
+      }
+      else{
+        return res.status(500).send({success:false,message:"somthing wrong"})
+      }
+    }
+  }
+  catch(err)
+  {
+    console.log(err)
+    res.status(500).send({message:"Somthing wrong while updating",err,success:false})
+  }
+}

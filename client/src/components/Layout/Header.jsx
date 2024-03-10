@@ -3,7 +3,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -30,7 +30,7 @@ function Header() {
   const [auth, setAuth] = useAuth();
   const { categories } = useCategory();
   let [cart] = useCart()
-
+  let navigate = useNavigate()
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -41,6 +41,7 @@ function Header() {
 
   const handleLogout = () => {
     setAuth({ user: "", token: null });
+    navigate('/signin')
   };
 
   return (
