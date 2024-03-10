@@ -1,5 +1,5 @@
 import express from 'express'
-import { createProductController, deleteProductController, filterProductController, getAllProductController, getSingleProductController, productCategoryController, productListController, searchHandlerController, similarProductController, totalProductController, updateProductController } from '../controller/productController.js'
+import { braintreePaymentController, braintreeTokenController, createProductController, deleteProductController, filterProductController, getAllProductController, getSingleProductController, productCategoryController, productListController, searchHandlerController, similarProductController, totalProductController, updateProductController } from '../controller/productController.js'
 import uploads from '../config/multer.js'
 import { isAdmin, isRequire } from '../middleware/authMiddleware.js'
 let route = express.Router()
@@ -27,3 +27,7 @@ route.get('/similar-product/:p_id/:c_id',similarProductController)
 route.get('/search-product/:keyword',searchHandlerController)
 //product category || GET
 route.get('/product-category/:slug',productCategoryController)
+//braintreetoken ||get
+route.get('/braintree/token',braintreeTokenController)
+// payment
+route.post('/braintree/payment',isRequire,braintreePaymentController)

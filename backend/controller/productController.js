@@ -1,6 +1,8 @@
 import {deleteImageOnCloudinary, uploadImageOnCloudinary} from '../helper/cloudinaryHelper.js'
 import productModel from '../model/productModel.js'
 import categoryModel from '../model/categoryModel.js'
+import orderModel from '../model/orderModel.js'
+import gateway from '../config/payment.js'
 // import cloudinary from '../config/cloudinary'
 
 //This is for creating product
@@ -181,3 +183,58 @@ export let productCategoryController = async(req,res)=>{
         res.status(500).send({message:'Something went wrong while fetching products with respect to category',success:false,err})
     }
 }
+//For braintree token controller
+export let braintreeTokenController = async(req,res)=>{
+    try {
+        gateway.clientToken.generate({},function(err,response){
+            if(err){
+                res.status(500).send(err)
+            }
+            else{
+                res.status(200).send(response)
+            }
+        })
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({message:"Something went wrong while doing payment",err,success:false})
+        
+    }
+}
+//For payment
+export let braintreePaymentController = async (req, res) => {
+    try {
+      let { nonce, cart } = req.body;
+      let total_ammount = cart.reduce((acc, item) => {
+        if (item && item.price != null) {
+            return acc + item.price;
+        } else {
+            return acc;
+        }
+      }, 0);
+      gateway.transaction.sale(
+        {
+          amount: total_ammount,
+          paymentMethodNonce: nonce,
+          options: {
+            submitForSettlement: true,
+          },
+        },
+        function (error, result) {
+          if (result) {
+            const order = new orderModel({
+              products: cart,
+              payment: result,
+              buyer: req.user._id,
+            }).save();
+            res.json({ ok: true });
+          } else {
+            res.status(500).send(error);
+          }
+        }
+      );
+    } catch (err) {
+      res
+        .status(500)
+        .send({ success: false, message: "somthing went wrong while doing payment", err });
+    }
+};
