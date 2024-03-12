@@ -68,7 +68,6 @@ export let otpValiateHandler = async(req,res)=>{
     try {
         let { email, otp } = req.body;
         let verifyOtp = await otpModel.findOne({ otp }).populate("user");
-        console.log(verifyOtp);
         if (verifyOtp) {
           //token creation
           let token = await jwt.sign(
