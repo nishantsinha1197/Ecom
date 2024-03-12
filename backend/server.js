@@ -7,6 +7,7 @@ import authRoute from './route/authRoute.js';
 import categoryRoute from './route/categoryRoute.js'
 import productRoute from './route/productRoute.js'
 import orderRoute from './route/orderRoute.js'
+import otproute from './route/otproute.js'
 let app=express(); 
 //config
 //this is for dotenv
@@ -27,6 +28,8 @@ app.use('/api/v1',categoryRoute)
 app.use('/api/v1',productRoute)
 //order Route
 app.use('/api/v1',orderRoute)
+//otp-route
+app.use('/api/v1',otproute)
 app.listen(PORT,()=>{
     console.log(`Sever is started at  http://localhost:${PORT} `)
 })
