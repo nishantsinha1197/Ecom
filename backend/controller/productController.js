@@ -18,6 +18,7 @@ export let createProductController = async (req, res) => {
         {
             return res.status(200).send({message:"At least Upload one image"}) 
         }
+        console.log('jkkkk');
         let image= await uploadImageOnCloudinary(req.files)
         console.log(category);
         let product = await new productModel({name,price,quantity,description,category,brand,shipping,images:image}).save()

@@ -29,7 +29,7 @@ function ProductContext({ children }) {
   async function getAllProduct() {
     try {
       dispatch(initialData());
-      let { data } = await axios.get("/api/v1/products");
+      let { data } = await axios.get("http://localhost:8080/api/v1/products");
       dispatch(fetchedData(data.products));
     } catch (err) {
       console.log(err);
